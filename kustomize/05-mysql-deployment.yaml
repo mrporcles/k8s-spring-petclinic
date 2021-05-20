@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-petclinic-mysql
+  namespace: spring-petclinic
+  labels:
+    app: spring-petclinic
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: spring-petclinic
+    tier: mysql
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: spring-petclinic
+  labels:
+    app: spring-petclinic
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-petclinic-mysql
+  namespace: spring-petclinic
+  labels:
+    app: spring-petclinic
+spec:
+  selector:
+    matchLabels:
+      app: spring-petclinic
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: petclinic
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

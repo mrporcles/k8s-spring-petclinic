@@ -1,0 +1,12 @@
+secretGenerator:
+- name: mysql-pass
+  namespace: spring-petclinic
+  literals:
+  - password=password
+resources:
+  - 01-namespace.yaml
+  - 02-config-map.yaml
+  - 03-role.yaml
+  - 04-services.yaml
+  - 05-mysql-deployment.yaml
+  - 06-app-deployments.yaml
