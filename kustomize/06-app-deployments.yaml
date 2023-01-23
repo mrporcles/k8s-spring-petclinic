@@ -18,7 +18,7 @@ spec:
         app: api-gateway
     spec:
       containers:
-      - image: mrporcles/api-gateway:latest
+      - image: ghcr.io/mrporcles/spring-petclinic-cloud/api-gateway
         name: api-gateway
         imagePullPolicy: Always
         livenessProbe:
@@ -64,7 +64,7 @@ spec:
         app: customers-service
     spec:
       containers:
-      - image: mrporcles/customers-service:latest
+      - image: ghcr.io/mrporcles/spring-petclinic-cloud/customers-service
         name: customers-service
         imagePullPolicy: Always
         livenessProbe:
@@ -119,7 +119,7 @@ spec:
         app: vets-service
     spec:
       containers:
-      - image: mrporcles/vets-service:latest
+      - image: ghcr.io/mrporcles/spring-petclinic-cloud/vets-service
         name: vets-service
         imagePullPolicy: Always
         livenessProbe:
@@ -174,7 +174,7 @@ spec:
         app: visits-service
     spec:
       containers:
-      - image: mrporcles/visits-service:latest
+      - image: ghcr.io/mrporcles/spring-petclinic-cloud/visits-service
         name: visits-service
         imagePullPolicy: Always
         livenessProbe:
