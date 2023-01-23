@@ -10,3 +10,4 @@ resources:
   - 04-services.yaml
   - 05-mysql-deployment.yaml
   - 06-app-deployments.yaml
+  - 07-ingress.yaml
